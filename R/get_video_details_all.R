@@ -38,5 +38,6 @@ get_video_details_all <- function(video_id = NULL, part = c("snippet","statistic
     }
     message("finished with ", i, "/",n_loop)
   }
+  results <- do.call(rbind, results)
   return(results)
 }
