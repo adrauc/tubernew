@@ -8,6 +8,6 @@ test_that("list_channel_activities runs successfully", {
   options(google_token = google_token)
 
   get_info <- list_channel_activities(filter =
-                                     c(channel_id = "UCMtFAi84ehTSYSE9XoHefig"))
+                                     c(channel_id = "UCRw8bIz2wMLmfgAgWm903cA"))
   expect_that(get_info, is_a("data.frame"))
 })

@@ -4,14 +4,12 @@
 \alias{tuber_GET}
 \title{GET}
 \usage{
-tuber_GET(path, query, auth = "token", ...)
+tuber_GET(path, query, ...)
 }
 \arguments{
 \item{path}{path to specific API request URL}
 
 \item{query}{query list}
-
-\item{auth}{A character vector of the authentication method, either "token" (the default) or "key"}
 
 \item{\dots}{Additional arguments passed to \code{\link[httr]{GET}}.}
 }
