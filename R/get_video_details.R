@@ -123,7 +123,8 @@ get_video_details <- function(video_id = NULL, part = "snippet", as.data.frame =
   }
 
   if (as.data.frame) {
-    raw_res <- purrr::map_df(raw_res$items, ~ flatten(.x))
+    raw_res <- json_to_df(raw_res)
+    # raw_res <- purrr::map_df(raw_res$items, ~ flatten(.x))
   }
 
   raw_res
