@@ -39,5 +39,9 @@ get_video_details_all <- function(video_id = NULL, part = c("snippet","statistic
     message("finished with ", i, "/",n_loop)
   }
   results <- do.call(rbind, results)
+  results$created_at <- as.POSIXct(results$publishedAt, "%Y-%m-%dT%H:%M:%SZ", tz="UTC")
+  results$viewCount <- as.numeric(results$viewCount)
+  results$commentCount <- as.numeric(results$commentCount)
+  results$likeCount <- as.numeric(results$likeCount)
   return(results)
 }
