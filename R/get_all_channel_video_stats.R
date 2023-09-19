@@ -35,43 +35,7 @@ get_all_channel_video_stats <- function(channel_id = NULL, mine = FALSE, ...) {
   playlist_items <- get_playlist_items(filter = list(playlist_id = playlist_id), max_results = 100)
   vid_ids <- playlist_items$contentDetails$videoId
 
-  res <- lapply(vid_ids, get_stats)
-  details <- lapply(vid_ids, get_video_details)
-
-  res_df <- data.frame(id = unlist(lapply(res, `[[`, "id")),
-                       view_count = unlist(lapply(res, `[[`, "statistics$viewCount")),
-                       like_count = unlist(lapply(res, `[[`, "statistics$likeCount")),
-                       dislike_count = unlist(lapply(res, `[[`, "statistics$dislikeCount")),
-                       comment_count = unlist(lapply(res, `[[`, "statistics$commentCount")),
-                       stringsAsFactors = FALSE)
-
-  details_df <- data.frame(id = character(),
-                           title = character(),
-                           publication_date = character(),
-                           description = character(),
-                           channel_id = character(),
-                           channel_title = character(),
-                           stringsAsFactors = FALSE)
-
-  for (i in seq_along(details)) {
-    detail <- details[[i]]
-    if (length(detail$items) == 0) {
-      next
-    }
-    item <- detail$items[[1]]$snippet
-    detail_df <- data.frame(id = item$id,
-                            title = item$title,
-                            publication_date = if ("videoPublishedAt" %in% names(item)) item$videoPublishedAt else NA,
-                            description = item$description,
-                            channel_id = item$channelId,
-                            channel_title = item$channelTitle,
-                            stringsAsFactors = FALSE)
-    details_df <- rbind(details_df, detail_df)
-  }
-
-  res_df$url <- paste0("https://www.youtube.com/watch?v=", res_df$id)
-
-  merged_df <- merge(details_df, res_df, by = "id")
+  merged_df <- get_video_details_all(video_id = vid_ids, part = c("snippet","statistics"), as.data.frame = T)
   return(merged_df)
 }
 
