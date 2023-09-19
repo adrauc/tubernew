@@ -33,7 +33,7 @@ get_all_channel_video_stats <- function(channel_id = NULL, mine = FALSE, ...) {
   playlist_id <- check_test$items[[1]]$contentDetails$relatedPlaylists$uploads
 
   playlist_items <- get_playlist_items(filter = list(playlist_id = playlist_id), max_results = 100)
-  vid_ids <- playlist_items$contentDetails$videoId
+  vid_ids <- playlist_items$contentDetails$contentDetails.videoId
 
   merged_df <- get_video_details_all(video_id = vid_ids, part = c("snippet","statistics"), as.data.frame = T)
   return(merged_df)
