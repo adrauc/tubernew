@@ -37,7 +37,7 @@ get_all_comments <- function(video_id = NULL, ...) {
 
     page_token  <- a_res$nextPageToken
   }
-
+  agg_res$created_at <- as.POSIXct(agg_res$publishedAt, "%Y-%m-%dT%H:%M:%SZ", tz="UTC")
   agg_res
 }
 
