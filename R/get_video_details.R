@@ -126,16 +126,6 @@ get_video_details <- function(video_id = NULL, part = "snippet", as.data.frame =
     raw_res <- json_to_df(raw_res)
     # raw_res <- purrr::map_df(raw_res$items, ~ flatten(.x))
   }
-  raw_res$created_at <- as.POSIXct(raw_res$publishedAt, "%Y-%m-%dT%H:%M:%SZ", tz="UTC")
-  if("statistics" %in% part) {
-    raw_res$statistics_viewCount <- as.numeric(raw_res$statistics_viewCount)
-    raw_res$statistics_commentCount <- as.numeric(raw_res$statistics_commentCount)
-    raw_res$statistics_likeCount <- as.numeric(raw_res$statistics_likeCount)
-    raw_res$statistics_favoriteCount <- as.numeric(raw_res$statistics_favoriteCount)
-  }
-  if("contentDetails" %in% part) {
-    raw_res$play_time <- lubridate::duration(raw_res$contentDetails_duration)
-  }
   raw_res
 }
 

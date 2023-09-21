@@ -25,7 +25,7 @@
 #' get_video_details(video_id = "yJXTXN4xrI8", part = "contentDetails")
 #' }
 
-get_video_details_all <- function(video_id = NULL, part = c("snippet","statistics"), as.data.frame = FALSE, ...) {
+get_video_details_all <- function(video_id = NULL, part = c("snippet","statistics","contentDetails"), as.data.frame = FALSE, ...) {
 
   results <- list()
   n_loop <- ceiling(length(video_id)/50)
@@ -39,5 +39,17 @@ get_video_details_all <- function(video_id = NULL, part = c("snippet","statistic
     message("finished with ", i, "/",n_loop)
   }
   results <- dplyr::bind_rows(results)
+
+  results$created_at <- as.POSIXct(results$publishedAt, "%Y-%m-%dT%H:%M:%SZ", tz="UTC")
+  if("statistics" %in% part) {
+    results$statistics_viewCount <- as.numeric(results$statistics_viewCount)
+    results$statistics_commentCount <- as.numeric(results$statistics_commentCount)
+    results$statistics_likeCount <- as.numeric(results$statistics_likeCount)
+    results$statistics_favoriteCount <- as.numeric(results$statistics_favoriteCount)
+  }
+  if("contentDetails" %in% part) {
+    results$play_time <- lubridate::duration(results$contentDetails_duration)
+  }
+
   return(results)
 }
