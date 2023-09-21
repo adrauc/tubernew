@@ -29,7 +29,8 @@ Imports:
     tibble,
     tidyr,
     tidyselect,
-    utils
+    utils,
+    lubridate
 Suggests:
     hms,
     knitr (>= 1.11),
