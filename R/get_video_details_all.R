@@ -48,7 +48,7 @@ get_video_details_all <- function(video_id = NULL, part = c("snippet","statistic
     results$statistics_favoriteCount <- as.numeric(results$statistics_favoriteCount)
   }
   if("contentDetails" %in% part) {
-    results$play_time <- lubridate::duration(results$contentDetails_duration)
+    results$video_duration <- lubridate::duration(results$contentDetails_duration)
   }
 
   return(results)
