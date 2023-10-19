@@ -52,7 +52,7 @@ get_channel_stats_all <- function(ids, part=c("snippet", "statistics"), ...) {
     temp_df$viewCount <- as.numeric(temp_df$viewCount)
     temp_df$subscriberCount <- as.numeric(temp_df$subscriberCount)
     temp_df$videoCount <- as.numeric(temp_df$videoCount)
-    agg_res$created_at <- as.POSIXct(agg_res$publishedAt, "%Y-%m-%dT%H:%M:%SZ", tz="UTC")
+    temp_df$created_at <- as.POSIXct(temp_df$publishedAt, "%Y-%m-%dT%H:%M:%SZ", tz="UTC")
     channel_list[[i]] <- temp_df
   }
   do.call(rbind, channel_list)
