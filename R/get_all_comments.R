@@ -34,7 +34,6 @@ get_all_comments <- function(video_id = NULL, ...) {
 
     querylist$pageToken <- page_token
     res <- tuber_GET("commentThreads", querylist)
-    message("getting ", querylist$pageToken)
     result_list[[i]] <- process_page(res)
 
     page_token  <- res$nextPageToken
