@@ -24,19 +24,23 @@
 #' }
 
 get_all_comments <- function(video_id = NULL, ...) {
-  querylist <- list(videoId = video_id, part = "id,replies,snippet")
+  querylist <- list(videoId = video_id, part = "id,replies,snippet", maxResults=100)
   res <- tuber_GET("commentThreads", query = querylist, ...)
-  agg_res <- process_page(res)
+  result_list <- list()
+  result_list[[1]] <- process_page(res)
   page_token <- res$nextPageToken
-
+  i=2
   while (is.character(page_token)) {
 
     querylist$pageToken <- page_token
-    a_res <- tuber_GET("commentThreads", querylist)
-    agg_res <- rbind(agg_res, process_page(a_res), stringsAsFactors = FALSE)
+    res <- tuber_GET("commentThreads", querylist)
+    message("getting ", querylist$pageToken)
+    result_list[[i]] <- process_page(res)
 
-    page_token  <- a_res$nextPageToken
+    page_token  <- res$nextPageToken
+    i <- i+1
   }
+  agg_res <- rbind.fill(result_list)
   agg_res$created_at <- as.POSIXct(agg_res$publishedAt, "%Y-%m-%dT%H:%M:%SZ", tz="UTC")
   agg_res
 }
@@ -64,7 +68,7 @@ process_page <- function(res = NULL) {
   }
   )
 
-  for (i in seq_len(n_replies)) {
+  for (i in seq_len(length(n_replies)) {
 
     if (n_replies[i] == 1) {
 
