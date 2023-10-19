@@ -23,7 +23,7 @@
 #' get_channel_stats(ids="UCMtFAi84ehTSYSE9Xo") # Incorrect channel ID
 #' }
 
-get_channel_stats_all <- function(ids, part=c("snippet", "statistics")) {
+get_channel_stats_all <- function(ids, part=c("snippet", "statistics"), ...) {
   channel_list <- list()
   length_ids <- ceiling(length(ids)/50)
   for(i in 1:length_ids) {
