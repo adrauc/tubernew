@@ -68,7 +68,7 @@ process_page <- function(res = NULL) {
   }
   )
 
-  for (i in seq_len(length(n_replies)) {
+  for (i in seq_len(length(n_replies))) {
 
     if (n_replies[i] == 1) {
 
