@@ -55,7 +55,7 @@ get_channel_stats_all <- function(ids, part=c("snippet", "statistics"), ...) {
     temp_df$created_at <- as.POSIXct(temp_df$publishedAt, "%Y-%m-%dT%H:%M:%S", tz="UTC")
     channel_list[[i]] <- temp_df
   }
-  do.call(rbind, channel_list)
+  rbind.fill(channel_list)
 }
 
 
