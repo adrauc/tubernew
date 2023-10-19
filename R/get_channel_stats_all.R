@@ -33,7 +33,7 @@ get_channel_stats_all <- function(ids, part=c("snippet", "statistics")) {
                        maxResults = "50")
     } else {
       querylist = list(part = paste(part, collapse=","),
-                       id=paste(ids[(i*50-49):length(channel_ids)], collapse=","),
+                       id=paste(ids[(i*50-49):length(ids)], collapse=","),
                        maxResults = "50")
     }
     test <- tuber_GET("channels", query = querylist, ...)
