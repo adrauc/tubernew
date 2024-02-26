@@ -19,6 +19,8 @@ yt_search(
   video_caption = "any",
   video_license = "any",
   video_syndicated = "any",
+  region_code = NULL,
+  relevance_language = "en",
   video_type = "any",
   simplify = TRUE,
   get_all = TRUE,

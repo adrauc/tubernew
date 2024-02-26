@@ -4,12 +4,7 @@
 \alias{get_video_details}
 \title{Get Details of a Video or Videos}
 \usage{
-get_video_details(
-  video_id = NULL,
-  part = "snippet",
-  as.data.frame = FALSE,
-  ...
-)
+get_video_details(video_id = NULL, part = "snippet", as.data.frame = TRUE, ...)
 }
 \arguments{
 \item{video_id}{Comma separated list of IDs of the videos for which
