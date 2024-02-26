@@ -333,3 +333,6 @@ parse_to_secs <- function(x) {
 
 has_name_ <- function(x, name) isTRUE(name %in% names(x))
 
+convert_tz <- function(x, tz) {
+  as.POSIXct(as.POSIXlt(x, tz = tz))
+}
