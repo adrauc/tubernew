@@ -36,8 +36,6 @@
 #' @export
 ts_plot <- function(data, by = "days", trim = 0L, tz ="UTC", ...) {
   data <- ts_data(data, by, trim, tz)
-  check_installed("ggplot2")
-
   p <- ggplot2::ggplot(data, ggplot2::aes(x = .data[["time"]], y = .data[["n"]]))
   if (ncol(data) == 3L) {
     # retrieve group name
