@@ -330,3 +330,6 @@ parse_to_secs <- function(x) {
   }
   n * x
 }
+
+has_name_ <- function(x, name) isTRUE(name %in% names(x))
+
