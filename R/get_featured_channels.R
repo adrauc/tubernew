@@ -24,7 +24,7 @@
 get_featured_channels <- function(channel_id = NULL, ...) {
   querylist <- list(channelId = channel_id, part = "contentDetails")
   res <- tuber_GET("channelSections", query = querylist, ...)
-  df <- fromJSON(toJSON(res$items), flatten = TRUE)
+  df <- jsonlite::fromJSON(jsonlite::toJSON(res$items), flatten = TRUE)
   df
 }
 
