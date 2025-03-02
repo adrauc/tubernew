@@ -35,9 +35,7 @@
 #' # Set API token via yt_oauth() first
 #'
 #' list_channel_resources(filter = c(channel_id = "UCT5Cx1l4IS3wHkJXNyuj4TA"))
-#' list_channel_resources(filter = c(username = "latenight"), part = "id, contentDetails")
-#' list_channel_resources(filter = c(username = "latenight"), part = "id, contentDetails",
-#' max_results = 10)
+#' list_channel_resources(filter = c(username = "loganpaulvlogs"), part = "id, contentDetails")
 #' }
 
 list_channel_resources <- function(filter = NULL, part = "contentDetails",
@@ -55,40 +53,40 @@ list_channel_resources <- function(filter = NULL, part = "contentDetails",
   if (length(filter) != 1) stop("filter must be a vector of length 1.")
 
   translate_filter   <- c(channel_id = "id", category_id = "categoryId",
-                          username = "forUsername")
+                          username = "forHandle")
   yt_filter_name     <- as.vector(translate_filter[match(names(filter),
                                                       names(translate_filter))])
   names(filter)      <- yt_filter_name
 
-  if (is.character(filter$username)) {
-    usernames <- filter$username
+  if (is.character(filter$forHandle)) {
+    usernames <- filter$forHandle
     num_usernames <- length(usernames)
     channel_ids <- vector("list", length = num_usernames)
-    
+
     for (i in seq_along(usernames)) {
       querylist <- list(part = part, maxResults = max_results,
-                        pageToken = page_token, hl =  hl, forUsername = usernames[i])
-      
+                        pageToken = page_token, hl =  hl, forHandle = usernames[i])
+
       res <- tuber_GET("channels", querylist, ...)
-      
+
       if (length(res$items) == 0) {
         warning("No details available for username: ", usernames[i])
       } else {
         channel_ids[[i]] <- res$items[[1]]$id
       }
-      
+
       print(i)
     }
-    
+
     return(channel_ids)
   }
-  
+
   querylist <- list(part = part, maxResults = max_results,
                     pageToken = page_token, hl = hl)
   querylist <- c(querylist, filter)
-  
+
   res <- tuber_GET("channels", querylist, ...)
-  
+
   res
 }
 

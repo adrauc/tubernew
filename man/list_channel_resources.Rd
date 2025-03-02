@@ -55,9 +55,7 @@ Returns List of Requested Channel Resources
 # Set API token via yt_oauth() first
 
 list_channel_resources(filter = c(channel_id = "UCT5Cx1l4IS3wHkJXNyuj4TA"))
-list_channel_resources(filter = c(username = "latenight"), part = "id, contentDetails")
-list_channel_resources(filter = c(username = "latenight"), part = "id, contentDetails",
-max_results = 10)
+list_channel_resources(filter = c(username = "loganpaulvlogs"), part = "id, contentDetails")
 }
 }
 \references{
