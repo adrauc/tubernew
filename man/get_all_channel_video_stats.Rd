@@ -4,10 +4,17 @@
 \alias{get_all_channel_video_stats}
 \title{Get statistics on all the videos in a Channel}
 \usage{
-get_all_channel_video_stats(channel_id = NULL, mine = FALSE, ...)
+get_all_channel_video_stats(
+  channel_id = NULL,
+  username = NULL,
+  mine = FALSE,
+  ...
+)
 }
 \arguments{
 \item{channel_id}{Character. Id of the channel}
+
+\item{username}{Character. Username of the channel}
 
 \item{mine}{Boolean. TRUE if you want to fetch stats of your own channel. Default is FALSE.}
 
@@ -19,7 +26,8 @@ nested named list with top element names:
 \code{snippet (list of details of the channel including title)}
 \code{, statistics (list of 5)}
 
-If the \code{channel_id} is mistyped or there is no information, an empty list is returned
+If the \code{channel_id} is mistyped or there is no information, an empty list is returned.
+Only provide either the channel_id or the username, not both.
 }
 \description{
 Get statistics on all the videos in a Channel
@@ -30,7 +38,8 @@ Get statistics on all the videos in a Channel
 # Set API token via yt_oauth() first
 
 get_all_channel_video_stats(channel_id="UCxOhDvtaoXDAB336AolWs3A")
-get_all_channel_video_stats(channel_id="UCMtFAi84ehTSYSE9Xo") # Incorrect channel ID
+get_all_channel_video_stats(channel_id="loganpaulvlogs")
+get_all_channel_video_stats(username="UCMtFAi84ehTSYSE9Xo") # Incorrect channel ID
 }
 }
 \references{
