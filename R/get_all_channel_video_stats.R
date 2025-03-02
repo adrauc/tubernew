@@ -28,8 +28,8 @@
 #' }
 
 get_all_channel_video_stats <- function(channel_id = NULL, username = NULL, mine = FALSE, ...) {
-  if (!is.character(channel_id) && !identical(tolower(mine), "true" && !is.character(username))) {
-    stop("Must specify a valid channel ID or set mine = 'true'.")
+  if (!(is.character(channel_id) || is.character(username) || identical(tolower(as.character(mine)), "true"))) {
+    stop("Must specify a valid channel ID, username, or set mine = 'true'.")
   }
 
   filter <- list()
