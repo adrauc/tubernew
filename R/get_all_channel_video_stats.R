@@ -32,7 +32,11 @@ get_all_channel_video_stats <- function(channel_id = NULL, username = NULL, mine
     stop("Must specify a valid channel ID or set mine = 'true'.")
   }
 
-  channel_resources <- list_channel_resources(filter = list(channel_id = channel_id, username=username), part = "contentDetails")
+  filter <- list()
+  if (!is.null(channel_id)) filter$channel_id <- channel_id
+  if (!is.null(username)) filter$username <- username
+
+  channel_resources <- list_channel_resources(filter = filter, part = "contentDetails")
   playlist_id <- channel_resources$items[[1]]$contentDetails$relatedPlaylists$uploads
 
   playlist_items <- get_playlist_items(filter = list(playlist_id = playlist_id), max_results = 100)
