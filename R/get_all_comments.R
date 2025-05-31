@@ -33,9 +33,19 @@ get_all_comments <- function(video_id = NULL, ...) {
   while (is.character(page_token)) {
 
     querylist$pageToken <- page_token
-    res <- tuber_GET("commentThreads", querylist)
-    result_list[[i]] <- process_page(res)
+    res <- try(tuber_GET("commentThreads", querylist), silent = T)
 
+    if( class(res)[1] == "try-error" ) {
+      Sys.sleep(5)
+      res <- tuber_GET("commentThreads", querylist)
+    }
+
+    if( res$pageInfo$totalResults == 0) {
+      Sys.sleep(5)
+      res <- tuber_GET("commentThreads", querylist)
+    }
+
+    result_list[[i]] <- process_page(res)
     page_token  <- res$nextPageToken
     i <- i+1
   }
