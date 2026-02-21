@@ -42,12 +42,18 @@ get_video_details_all <- function(video_id = NULL, part = c("snippet","statistic
 
   results$created_at <- as.POSIXct(results$publishedAt, "%Y-%m-%dT%H:%M:%SZ", tz="UTC")
   if("statistics" %in% part) {
-    results$statistics_viewCount <- as.numeric(results$statistics_viewCount)
+    if("statistics_viewCount" %in% colnames(results)) {
+      results$statistics_viewCount <- as.numeric(results$statistics_viewCount)
+    }
     if("statistics_commentCount" %in% colnames(results)) {
       results$statistics_commentCount <- as.numeric(results$statistics_commentCount)
     }
-    results$statistics_likeCount <- as.numeric(results$statistics_likeCount)
-    results$statistics_favoriteCount <- as.numeric(results$statistics_favoriteCount)
+    if("statistics_likeCount" %in% colnames(results)) {
+      results$statistics_likeCount <- as.numeric(results$statistics_likeCount)
+    }
+    if("statistics_favoriteCount" %in% colnames(results)) {
+      results$statistics_favoriteCount <- as.numeric(results$statistics_favoriteCount)
+    }
   }
   if("contentDetails" %in% part) {
     results$video_duration <- lubridate::duration(results$contentDetails_duration)
